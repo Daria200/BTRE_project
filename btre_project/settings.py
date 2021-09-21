@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'listings',
     'realtors',
     'django.contrib.humanize',
-    'accounts'
+    'accounts',
+    'contacts'
 ]
 
 MIDDLEWARE = [
@@ -145,3 +146,9 @@ MESSAGE_TAGS = {
     messages.ERROR: 'Error:',
     
 } 
+# email config
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = ''
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = True
