@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, render
 from .models import Listing
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from .choices import price_choices, state_choices, bedroom_choices
+from realtors.models import Realtor
 
 def index(request):
     listings = Listing.objects.order_by('-list_day').filter(is_published=True)
@@ -30,6 +31,13 @@ def search(request):
         if city:
             queryset_list =  queryset_list.filter(city__iexact = city)
     
+    # Realtor
+    if 'name' in request.GET:
+        name = request.GET['name']
+        if name:
+            queryset_list =  queryset_list.filter(realtor__name__icontains = name)
+            print(name)
+    
     # state
     if 'state' in request.GET:
         state = request.GET['state']
@@ -54,5 +62,5 @@ def search(request):
     "bedroom_choices": bedroom_choices,
     "price_choices":price_choices,
     'listings': queryset_list,
-    'values': request.GET }
+    'values': request.GET}
     return render(request, 'listings/search.html', context)
